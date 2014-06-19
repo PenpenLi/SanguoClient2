@@ -24,7 +24,7 @@ public class CClientActionData
 	// 那個 ClientAction
 	public ClientActionID m_CID;
 	// ClientAction 所需要的參數 
-	public Dictionary<string, object> m_Args;
+	public object m_Value;
 	// 不應該被使用的
 	public Dictionary<string, object> m_dictProtocol;
 	// 額外參數
@@ -34,15 +34,21 @@ public class CClientActionData
 	public CClientActionData 
 		(
 			string ActionName
-			, Dictionary<string, object> Args
+			, object oValue
 			, Dictionary<string, object> dictProtocol
 			, object State
 			)
 	{
 		m_CID = (ClientActionID) System.Convert.ToInt32 (ActionName);
-		m_Args = Args;
+		m_Value = oValue;
 		m_dictProtocol = dictProtocol;
 		m_State = State;
+	}
+
+	public override string ToString ()
+	{
+		string strResult = string.Format ("[CClientActionData] CID:{0}, Value:{1}", m_CID.ToString(), m_Value);
+		return strResult;
 	}
 }
 
@@ -89,10 +95,9 @@ public partial class GameService : Singleton<GameService>
 			List<KeyValuePair<string, object>> listAction = JsonConvert.DeserializeObject<List<KeyValuePair<string, object>>> (dictResult["ClientAction"].ToString());
 			foreach (var ChildAction in listAction)
 			{
-				Dictionary<string, object> dictArgs = ChildAction.Value as Dictionary<string, object>;
 				try
 				{
-					DoClientAction (ChildAction.Key, dictArgs, dictResult, userState);
+					PushClientAction (ChildAction.Key, ChildAction.Value, dictResult, userState);
 				}
 				catch (Exception e)
 				{
@@ -107,10 +112,10 @@ public partial class GameService : Singleton<GameService>
 	static List<CClientActionData> m_ClientAction = new List<CClientActionData> ();
 
 	// 取得 ClientAction
-	public static void DoClientAction (string ClientActionName, Dictionary<string, object> Args, Dictionary<string, object> dictProtocol, object State)
+	public static void PushClientAction (string ClientActionName, object Value, Dictionary<string, object> dictProtocol, object State)
 	{
-		LogMgr.DebugLog ("[GameService.DoClientAction] ClientActionName:{0}, Args:{1}", ClientActionName, JsonConvert.SerializeObject(Args));
-		ModifyClientAction (new CClientActionData (ClientActionName, Args, dictProtocol, State));
+		LogMgr.DebugLog ("[GameService.PushClientAction] ClientActionName:{0}, Value:{1}", ClientActionName, Value);
+		ModifyClientAction (new CClientActionData (ClientActionName, Value, dictProtocol, State));
 	}
 
 	// 塞入一個 / 取出一個
@@ -146,36 +151,7 @@ public partial class GameService : Singleton<GameService>
 		CClientActionData Data = ModifyClientAction ();
 		if (Data == null)
 			return;
-		// 創角
-		if (Data.m_CID == ClientActionID.ToNewPlayer)
-		{
-			// 跳視窗說還沒有做
-		}
-		// 做登入動作
-		else if (Data.m_CID == ClientActionID.ToLogin)
-		{
-			// 先把 Login 面版關閉
-			GameUtility.HideUI (Const.Panel_Login);
-			// 記錄帳號 (Memory)
-			string Account = Data.m_dictProtocol["Account"].ToString();
-			PlayerAttr.Account = Account;
-			// 記錄 AccountID
-			int AccountID = System.Convert.ToInt32 (Data.m_dictProtocol["AccountID"].ToString());
-			PlayerAttr.AccountID = AccountID;
-			// 記錄 PlayerID
-			int PlayerID = System.Convert.ToInt32 (Data.m_dictProtocol["PlayerID"].ToString());
-			PlayerAttr.PlayerID = PlayerID;
-			// 記錄 SessionKey
-			string SessionKey = Data.m_dictProtocol["SessionKey"].ToString();
-			PlayerAttr.SessionKey = SessionKey;
-			// 記錄密碼
-			ClientSaveMgr.SetString (Const.Input_Account, Account);
-			ClientSaveMgr.SetString (Const.Input_Password, Data.m_dictProtocol["Password"].ToString());
-			// 拉出 Panel
-			GameUtility.ShowUI (Const.Panel_Main);
-			// 從網路要資料
-			GameService.Player_GetAttr ();
-		}
+		ClientAction.RunClientAction (Data);
 	}
 
 	#endregion

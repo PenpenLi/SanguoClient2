@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{35CB66AB-8C12-CB53-12C0-85D33BF42545}</ProjectGuid>
+	<ProjectGuid>{0A2B6B33-D1AD-53F9-4CFF-A67589041E47}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -161,7 +161,7 @@
      <None Include="Assets\JsonTxt\item_general.txt" />
      <None Include="Assets\NGUI\Resources\Localization.txt" />
  <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/dandanshih/Documents/GitHub/SanguoClient/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
+ <HintPath>C:/Users/dandanshih/Documents/GitHub/SanguoClient2/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -169,7 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{94B7F5B3-4980-D677-3A3D-7D0F9FD981C8}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{ACC29320-3DA7-CAF6-2CE0-D69AD5BD7EE6}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

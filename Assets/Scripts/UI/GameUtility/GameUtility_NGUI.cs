@@ -141,6 +141,23 @@ public partial class GameUtility
 		// 做播放
 		TS.PlayForward ();
 	}
+
+	// 設定 Tag 的值
+	public static void SetTagValue (string Tag, object Value)
+	{
+		GameObject[] TagObjects = GameObject.FindGameObjectsWithTag (Tag);
+		if (TagObjects == null)
+			return;
+		if (TagObjects.Length == 0)
+			return;
+		foreach (GameObject TagObject in TagObjects)
+		{
+			UILabel UI = TagObject.GetComponent<UILabel> ();
+			if (UI == null)
+				continue;
+			UI.text = Value.ToString();
+		}
+	}
 	
 	#endregion
 }
