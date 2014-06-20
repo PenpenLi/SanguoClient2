@@ -12,9 +12,9 @@ using System.Collections.Generic;
 // 常用的幾個面版
 public partial class Const
 {
-	// 登入面版
+	// 登入面版 (用的少就不使用 Tag)
 	public static string Panel_Login = "Panel_Login";
-	// 主面版
+	// 主面版(用的少就使用 Tag)
 	public static string Panel_Main = "Panel_Main";
 }
 
@@ -140,6 +140,11 @@ public partial class GameUtility
 			TS.duration = 0.01f;
 		// 做播放
 		TS.PlayForward ();
+	}
+
+	void FinishAnimation ()
+	{
+		LogMgr.DebugLog ("[FinishAnimation]");
 	}
 
 	// 設定 Tag 的值

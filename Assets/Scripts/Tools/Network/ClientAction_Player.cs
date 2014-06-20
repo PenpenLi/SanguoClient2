@@ -60,6 +60,7 @@ public partial class ClientAction
 	public static void ToNewPlayer (CClientActionData Data)
 	{
 		LogMgr.DebugLog ("[ClientAction.ToNewPlayer]");
+
 	}
 
 	#endregion

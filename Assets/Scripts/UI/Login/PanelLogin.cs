@@ -29,7 +29,8 @@ public class PanelLogin : MonoBehaviour
 	void OnChildClick_Cancel (object Data)
 	{
 		LogMgr.DebugLog ("[PanelLogin] OnChildClick_Cancel");
-		Application.Quit ();
+		GameUtility.ShowMessageBox ("歡迎再回來");
+		//Application.Quit ();
 	}
 
 	// 按下確定

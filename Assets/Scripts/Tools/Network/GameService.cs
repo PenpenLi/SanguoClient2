@@ -16,6 +16,7 @@ public partial class Const
 	// 連線的 Http 位置
 	// [problem] 以後應該要讀表或是從下載回來的資料得知
 	public static string ServerURL = "http://localhost/SG_Login/GameService.asmx";
+//	public static string ServerURL = "http://localhost:17044/Login/GameService.asmx";
 }
 
 // 每一個被放進來的 Client 行為

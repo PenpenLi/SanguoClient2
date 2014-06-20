@@ -189,6 +189,7 @@
      <Compile Include="Assets\Scripts\UI\GameUtility\GameUtility_Screen.cs" />
      <Compile Include="Assets\Scripts\UI\Login\PanelLogin.cs" />
      <Compile Include="Assets\Scripts\UI\Main\Panel_Main.cs" />
+     <Compile Include="Assets\Scripts\UI\PanelMessageBox.cs" />
      <Compile Include="Assets\Scripts\UI\SpriteProperty.cs" />
      <Compile Include="Assets\Scripts\WithClient\IDMap\ClientActionID.cs" />
      <Compile Include="Assets\Scripts\WithClient\IDMap\ErrorID.cs" />

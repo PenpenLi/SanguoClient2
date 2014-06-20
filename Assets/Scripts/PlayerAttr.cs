@@ -14,6 +14,8 @@ public partial class Const
 	public static string Tag_GameMoney = "Tag_GameMoney";
 	// 靈石
 	public static string Tag_GameCoin = "Tag_GameCoin";
+	// MessageBox
+	public static string Tag_Panel_MessageBox = "Tag_Panel_MessageBox";
 }
 
 public partial class PlayerAttr
