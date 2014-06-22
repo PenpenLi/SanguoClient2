@@ -1,17 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UI\PanelMessageBox.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WithClient\IDMap\ClientActionID.cs">
     <Files>
-      <File FileName="Assets\Scripts\UI\PanelMessageBox.cs" Line="40" Column="61" />
-      <File FileName="Assets\Scripts\Tools\Network\GameService.cs" Line="18" Column="1" />
-      <File FileName="Assets\Scripts\Tools\Network\ClientAction_Player.cs" Line="63" Column="3" />
-      <File FileName="Assets\Scripts\PlayerAttr.cs" Line="18" Column="69" />
-      <File FileName="Assets\Scripts\UI\Main\Panel_Main.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UI\GameUtility\GameUtility_NGUI.cs" Line="17" Column="20" />
-      <File FileName="Assets\NGUI\Scripts\Internal\NGUIText.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WithClient\IDMap\ClientActionID.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UI\GameUtility\GameUtility.cs" Line="48" Column="75" />
-      <File FileName="Assets\Scripts\UI\Login\PanelLogin.cs" Line="32" Column="40" />
+      <File FileName="Assets\Scripts\UI\PanelMessageBox.cs" Line="60" Column="12" />
+      <File FileName="Assets\Scripts\Tools\Network\GameService.cs" Line="115" Column="1" />
+      <File FileName="Assets\Scripts\Tools\Network\ClientAction_Player.cs" Line="24" Column="18" />
+      <File FileName="Assets\Scripts\PlayerAttr.cs" Line="105" Column="3" />
+      <File FileName="Assets\Scripts\WithClient\IDMap\ClientActionID.cs" Line="24" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -142,11 +142,6 @@ public partial class GameUtility
 		TS.PlayForward ();
 	}
 
-	void FinishAnimation ()
-	{
-		LogMgr.DebugLog ("[FinishAnimation]");
-	}
-
 	// 設定 Tag 的值
 	public static void SetTagValue (string Tag, object Value)
 	{

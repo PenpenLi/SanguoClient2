@@ -6,11 +6,6 @@ using Newtonsoft.Json;
 
 public class PanelMessageBox : MonoBehaviour 
 {
-	void OnClick ()
-	{
-		LogMgr.Log ("[PanelMessageBox] OnClick");
-	}
-
 	Dictionary<string, object> m_dictInfo = null;
 
 	// 做 MessageBox 的顯示
@@ -48,15 +43,21 @@ public class PanelMessageBox : MonoBehaviour
 		GameUtility.ShowUI (this.gameObject);
 	}
 
+	#region 關閉的動作
 	// 做關閉的動作
 	void _CloseUI (object Data=null)
 	{
 		// 做關閉動作
-		GameUtility.HideUI (this.gameObject);
+		GameUtility.HideUI (this.gameObject, false);
 		// 資料清掉
 		m_dictInfo = null;
 	}
 
+	void OnClick ()
+	{
+		Close ();
+	}
+	
 	void Close ()
 	{
 		OnChildClick_Button_Cancel ();
@@ -67,6 +68,8 @@ public class PanelMessageBox : MonoBehaviour
 	{
 		OnChildClick_Button_Cancel (Data);
 	}
+
+	#endregion
 
 	// 按下確定
 	void OnChildClick_Button_OK (object Data=null)

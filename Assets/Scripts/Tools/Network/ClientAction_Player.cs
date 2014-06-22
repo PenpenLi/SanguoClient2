@@ -6,13 +6,6 @@ using System.Collections.Generic;
 
 public partial class ClientAction
 {
-//	static Dictionary<ClientActionID, string> dictClientIDMap = new Dictionary<ClientActionID, string> ()
-//	{
-//		{ClientActionID.ToLogin, "ToLogin"}
-//		, {ClientActionID.ToNewPlayer, "ToNewPlayer"}
-//
-//	};
-
 	public static void RunClientAction (CClientActionData Data)
 	{
 		// 做轉換的動作
@@ -26,6 +19,13 @@ public partial class ClientAction
 			return;
 		}
 		method.Invoke (null, BindingFlags.Public | BindingFlags.Static, Type.DefaultBinder, new object[] {Data}, null);
+	}
+
+	// 顯示 MessageBox
+	public static void ShowMessage (CClientActionData Data)
+	{
+		LogMgr.DebugLog ("[ClientAction.ShowMessage]");
+		GameUtility.ShowMessageBox (Data.m_Value.ToString());
 	}
 
 	#region 登入相關
@@ -60,7 +60,7 @@ public partial class ClientAction
 	public static void ToNewPlayer (CClientActionData Data)
 	{
 		LogMgr.DebugLog ("[ClientAction.ToNewPlayer]");
-
+		GameUtility.ShowMessageBox ("還沒有創角流程, 請連絡開發者建立角色");
 	}
 
 	#endregion

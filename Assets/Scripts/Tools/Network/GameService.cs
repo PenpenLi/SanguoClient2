@@ -88,7 +88,9 @@ public partial class GameService : Singleton<GameService>
 			ErrorID eid = (ErrorID)System.Convert.ToInt32 (dictResult["Result"]);
 			if (eid != ErrorID.Success)
 			{
-				LogMgr.ErrorLog ("[GameService][ProtocolCompleteCallback] Parser Error, ErrorID = {0}, Msg={1}", eid, IDMap.GetEnumAttribute (eid));
+				LogMgr.Log ("[GameService][ProtocolCompleteCallback] Parser Error, ErrorID = {0}, Msg={1}", eid, IDMap.GetEnumAttribute (eid));
+				//GameUtility.ShowMessageBox (IDMap.GetEnumAttribute (eid), "錯誤");
+				PushClientAction ("3", IDMap.GetEnumAttribute (eid), dictResult, userState);
 			}
 			// 取得 ClientAction
 			if (dictResult.ContainsKey ("ClientAction") == false)
@@ -107,6 +109,10 @@ public partial class GameService : Singleton<GameService>
 			}
 		}
 	}
+
+	#region 錯誤統一處理區
+	
+	#endregion
 	
 	// Update is called once per frame
 	#region ClientAction 處理區
@@ -158,3 +164,4 @@ public partial class GameService : Singleton<GameService>
 	#endregion
 
 }
+
