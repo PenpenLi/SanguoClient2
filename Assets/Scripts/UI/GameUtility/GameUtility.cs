@@ -24,6 +24,18 @@ public partial class GameUtility
 		Application.Quit ();
 	}
 
+	// 取得下面小的
+	public static Component GetComponentInChildren<T> (GameObject obj, string ChildName)
+	{
+		Component[] arrT = obj.gameObject.GetComponentsInChildren (typeof (T));
+		foreach (Component UI in arrT)
+		{
+			if (UI.name == ChildName)
+				return UI;
+		}
+		return default(Component);
+	}
+
 	#region 和 GameObject 的互動
 
 	// 統一使用這個方式做 Message 的傳送

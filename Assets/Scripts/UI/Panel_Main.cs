@@ -24,6 +24,8 @@ public class Panel_Main : MonoBehaviour
 	void OnChildClick_Button_Info (object Data )
 	{
 		LogMgr.DebugLog ("[OnChildClick_Button_Info]");
+		// 開啟面版
+		GameUtility.ShowUI ("Panel_PlayerInfo");
 	}
 
 	void OnChildClick_Button_Backpack (object Data )

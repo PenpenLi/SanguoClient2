@@ -3,6 +3,7 @@
 /// </summary>
 
 using UnityEngine;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -18,14 +19,30 @@ public partial class Const
 	public static string Tag_Panel_MessageBox = "Tag_Panel_MessageBox";
 }
 
-public partial class PlayerAttr
+public partial class PlayerAttr : Singleton<PlayerAttr>
 {
+	private PlayerAttr ()
+	{
+	}
+
 	# region PlayerAttr 基本操作
 	static Dictionary<string, object> m_dictAttr = new Dictionary<string, object> ();
 	// 做清除的動作
 	public static void Reset ()
 	{
 		m_dictAttr.Clear ();
+	}
+
+	// ToString
+	public override string ToString()
+	{
+		StringBuilder sb = new StringBuilder ();
+		// 把資料都 Copy 進去
+		foreach (var KeyValue in m_dictAttr)
+		{
+			sb.Append (string.Format ("[{0}] {1}\n", KeyValue.Key, KeyValue.Value));
+		}
+		return sb.ToString();
 	}
 
 	// 取得屬性

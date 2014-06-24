@@ -189,6 +189,7 @@
      <Compile Include="Assets\Scripts\UI\PanelLogin.cs" />
      <Compile Include="Assets\Scripts\UI\PanelMessageBox.cs" />
      <Compile Include="Assets\Scripts\UI\Panel_Main.cs" />
+     <Compile Include="Assets\Scripts\UI\Panel_PlayerInfo.cs" />
      <Compile Include="Assets\Scripts\UI\UIUtility\ChildClick.cs" />
      <Compile Include="Assets\Scripts\UI\UIUtility\NoUse.cs" />
      <Compile Include="Assets\Scripts\UI\UIUtility\SpriteProperty.cs" />
@@ -222,6 +223,7 @@
      <None Include="Assets\NGUI\Examples\Atlases\Refractive\Refractive Font - Normal.txt" />
      <None Include="Assets\JsonTxt\item_gem.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Dynamic Font (SoftClip).shader" />
+     <None Include="Assets\JsonTxt\npc_beautiful.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (SoftClip).shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (SoftClip).shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
@@ -243,7 +245,7 @@
      <None Include="Assets\JsonTxt\item_general.txt" />
      <None Include="Assets\NGUI\Resources\Localization.txt" />
  <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/dandanshih/Documents/GitHub/SanguoClient2/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
+ <HintPath>F:/GitHub/SanguoClient2/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

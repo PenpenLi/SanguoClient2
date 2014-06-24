@@ -103,6 +103,8 @@ public partial class GameUtility
 			TS.duration = 0.01f;
 		// 做播放
 		TS.PlayForward ();
+		// 呼叫 Open
+		Target.SendMessage ("OnShow", SendMessageOptions.DontRequireReceiver);
 	}
 	
 	public static void HideUI (object UI, bool IsNow = false)
@@ -140,6 +142,8 @@ public partial class GameUtility
 			TS.duration = 0.01f;
 		// 做播放
 		TS.PlayForward ();
+		// 呼叫 Open
+		Target.SendMessage ("OnHide", SendMessageOptions.DontRequireReceiver);
 	}
 
 	// 設定 Tag 的值

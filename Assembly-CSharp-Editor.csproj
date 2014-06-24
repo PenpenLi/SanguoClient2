@@ -140,6 +140,7 @@
      <None Include="Assets\NGUI\Examples\Atlases\Refractive\Refractive Font - Normal.txt" />
      <None Include="Assets\JsonTxt\item_gem.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Dynamic Font (SoftClip).shader" />
+     <None Include="Assets\JsonTxt\npc_beautiful.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (SoftClip).shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (SoftClip).shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
@@ -161,7 +162,7 @@
      <None Include="Assets\JsonTxt\item_general.txt" />
      <None Include="Assets\NGUI\Resources\Localization.txt" />
  <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/dandanshih/Documents/GitHub/SanguoClient2/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
+ <HintPath>F:/GitHub/SanguoClient2/Assets/Plugins/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
