@@ -1,1 +1,2 @@
 C:\Users\dandanshih\Documents\GitHub\SanguoClient\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+F:\GitHub\SanguoClient2\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

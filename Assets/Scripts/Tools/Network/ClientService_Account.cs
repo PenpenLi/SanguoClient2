@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-public partial class GameService : Singleton<GameService>
+public partial class ClientService : Singleton<ClientService>
 {
 	// 檢查帳號密碼
 	public static void Account_Check (string Account, string Password)

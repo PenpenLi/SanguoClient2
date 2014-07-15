@@ -3,6 +3,9 @@
 /// Date : 2014/6/17
 /// </summary>
 
+//#define SHOW_EXCEPTION
+#define NOT_NETWORK
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,31 +37,113 @@ public partial class Const
 	public static int HttpReponseTimeout = 1000;
 }
 
+// 回應的相關資料
+public class CReqState
+{
+	public HttpWebRequest request;
+	public string jsonInput = "";
+	public string ConnectURL;
+	public object userState=null;
+	public event CompleteCallback callback;
+	
+	public void finishcallback(ErrorType errorCode, object result=null)
+	{
+		if (this.callback != null)
+			this.callback(errorCode, result, userState, this);
+		else
+			System.Console.WriteLine(result.ToString());
+	}
+	
+	public override string ToString ()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.Append (string.Format ("[CReqState]\n"));
+		sb.Append (string.Format ("[URL] {0}\n", ConnectURL));
+		sb.Append (string.Format ("[jsonInput] {0}\n", jsonInput));
+		sb.Append (string.Format ("[HttpWebRequest] {0}\n", request.ToString()));
+		return sb.ToString();
+	}
+}
+
 // 完成會呼叫的 FUNCTION 格式
-public delegate void CompleteCallback(ErrorType errorCode, object result, object userState, WebPost.CReqState state);
+public delegate void CompleteCallback(ErrorType errorCode, object result, object userState, CReqState state);
 
 /// <summary>
 /// WebPost 的摘要描述
 /// </summary>
 public class WebPost
 {
-	// 回應的相關資料
-	public class CReqState
+	#region web callback
+	
+	static Mutex m_MutexCallback = new Mutex ();
+	static List<IAsyncResult> m_listCallback = new List<IAsyncResult> ();
+	
+	public static void PushCallback (IAsyncResult result)
 	{
-		public HttpWebRequest request;
-		public string ConnectURL;
-		public object userState=null;
-		public event CompleteCallback callback;
-		
-		public void finishcallback(ErrorType errorCode, object result=null)
-		{
-			if (this.callback != null)
-				this.callback(errorCode, result, userState, this);
-			else
-				System.Console.WriteLine(result.ToString());
-		}
+		DebugLog ("[PushCallback]");
+		m_MutexCallback.WaitOne ();
+		m_listCallback.Add (result);
+		m_MutexCallback.ReleaseMutex ();
 	}
 	
+	static void DebugLog (string strMsg, params object[] Args)
+	{
+#if SHOW_EXCEPTION
+		strMsg = string.Format (strMsg, Args);
+		LogMgr.DebugLog (strMsg);
+#endif
+	}
+	
+	public static void ProcessCallback (IAsyncResult Source=null)
+	{
+		m_MutexCallback.WaitOne ();
+		while (m_listCallback.Count > 0 || Source != null)
+		{
+			DebugLog ("[ProcessCallback]");
+			IAsyncResult result = null;
+			if (Source == null)
+			{
+				result = m_listCallback[0];
+				m_listCallback.RemoveAt (0);
+			}
+			else
+			{
+				result = Source;
+			}
+			CReqState asyncState = null;
+#if !SHOW_EXCEPTION
+			try
+			{
+#endif
+				asyncState = (CReqState)result.AsyncState;
+				DebugLog ("1");
+				HttpWebResponse cRsp = (HttpWebResponse)asyncState.request.EndGetResponse(result);
+				DebugLog ("2");
+				StreamReader cStmRdr = new StreamReader(cRsp.GetResponseStream());
+				DebugLog ("3");
+				string output = string.Empty;
+				DebugLog ("4");
+				output = cStmRdr.ReadToEnd();
+				DebugLog ("5");
+				cStmRdr.Close();
+				asyncState.finishcallback(ErrorType.Success, output);
+#if !SHOW_EXCEPTION
+			}
+			// 取不到資料
+			catch (WebException e)
+			{
+				LogMgr.ErrorLog ("[FinishWebRequest][ProcessCallback] Message:{0}, Status:{1}", e.Message, e.Source);
+				if (asyncState != null)
+					asyncState.finishcallback(ErrorType.Error);
+				m_MutexCallback.ReleaseMutex ();
+				throw e;
+			}
+#endif
+		}
+		m_MutexCallback.ReleaseMutex ();
+	}
+	
+	#endregion
 	// Abort the request if the timer fires.
 	private static void TimeoutCallback(object state, bool timedOut)
 	{
@@ -72,36 +157,17 @@ public class WebPost
 			}
 		}
 	}
-	
+
 	// 要統一做處理
 	static void FinishWebRequest(IAsyncResult result)
 	{
 		LogMgr.DebugLog ("[FinishWebRequest] {0}", result);
-		CReqState asyncState = (CReqState)result.AsyncState;
-		try
-		{
-			//LogMgr.DebugLog ("1");
-			HttpWebResponse cRsp = (HttpWebResponse)asyncState.request.EndGetResponse(result);
-			//LogMgr.DebugLog ("2");
-			StreamReader cStmRdr = new StreamReader(cRsp.GetResponseStream());
-			//LogMgr.DebugLog ("3");
-			string output = string.Empty;
-			//LogMgr.DebugLog ("4");
-			output = cStmRdr.ReadToEnd();
-			//LogMgr.DebugLog ("5");
-			cStmRdr.Close();
-			//LogMgr.DebugLog ("[FinishWebRequest] {0}", output);
-			asyncState.finishcallback(ErrorType.Success, output);
-		}
-		// 取不到資料
-		catch (Exception e)
-		{
-			LogMgr.ErrorLog ("[FinishWebRequest] Exception:{0}", e.ToString());
-			asyncState.finishcallback(ErrorType.Error);
-		}
+		PushCallback (result);
+		ProcessCallback ();
+//		ProcessCallback (result);
 	}
 	
-	public static void _PostHttp (string strConnectURL, string strContent, CompleteCallback callback=null)
+	public static void _PostHttp (string strConnectURL, string strContent, CompleteCallback callback=null, object UserState=null)
 	{
 		// 產生連線
 		HttpWebRequest cWebReq = (HttpWebRequest)WebRequest.Create(strConnectURL);
@@ -121,6 +187,8 @@ public class WebPost
 		CReqState myRequestState = new CReqState();
 		myRequestState.request = cWebReq;
 		myRequestState.ConnectURL = strConnectURL;
+		myRequestState.jsonInput = strContent;
+		myRequestState.userState = UserState;
 		if (callback != null)
 			myRequestState.callback += callback;
 		// 丟進去 Queue 裏等
@@ -131,8 +199,13 @@ public class WebPost
 	}
 	
 	// 做 Post 上去的動作
-	public static void PostHttp(string strURL, string strMethodName, Dictionary<string, object> dictArgs, CompleteCallback callback)
+	public static void PostHttp(string strURL, string strMethodName, Dictionary<string, object> dictArgs, CompleteCallback callback, object UserState=null)
 	{
+		// 單機版的寫法
+#if NOT_NETWORK
+		LogMgr.DebugLog ("[WebPost][PostHttp][LocalHost] MethodName:{0}, Args:{1}", strMethodName, JsonConvert.SerializeObject(dictArgs));
+		GameServer.instance ().Receive (strMethodName, dictArgs, callback, UserState);
+#else
 		LogMgr.DebugLog ("[WebPost][PostHttp] MethodName:{0}, Args:{1}", strMethodName, JsonConvert.SerializeObject(dictArgs));
 		// 連線網址
 		string strConnectURL = string.Format("{0}/{1}", strURL, strMethodName);
@@ -141,6 +214,7 @@ public class WebPost
 		// 參數內容
 		string strContent = JsonConvert.SerializeObject (dictResult);
 		// 呼叫做處理
-		_PostHttp(strConnectURL, strContent, callback);
+		_PostHttp(strConnectURL, strContent, callback, UserState);
+#endif
 	}
 }

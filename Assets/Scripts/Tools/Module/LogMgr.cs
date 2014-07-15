@@ -16,9 +16,11 @@ using System.Collections;
 // 2014/6/17 替 Log 加上時間
 public class LogMgr
 {
-	static string _GetString (string Msg, object[] Args)
+	static string _GetString (string Msg, object[] Args=null)
 	{
-		string Result = string.Format (Msg.ToString(), Args);
+		string Result = Msg;
+		if (Args != null && Args.Length > 0)
+			Result = string.Format (Msg.ToString(), Args);
 		// 取得時間 2014/6/17
 		Result = string.Format ("[{0}] {1}", System.DateTime.Now.ToString ("MM/dd hh:mm:ss"), Result);
 		return Result;

@@ -53,7 +53,7 @@ public partial class ClientAction
 		// 拉出 Panel
 		GameUtility.ShowUI (Const.Panel_Main);
 		// 從網路要資料
-		GameService.Player_GetAttr ();
+		ClientService.Player_GetAttr ();
 	}
 	
 	// 創角行為

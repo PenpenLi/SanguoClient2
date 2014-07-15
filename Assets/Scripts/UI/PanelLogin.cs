@@ -38,7 +38,7 @@ public class PanelLogin : MonoBehaviour
 	{
 		LogMgr.DebugLog ("[PanelLogin] OnChildClick_OK");
 		// 送出帳號檢查
-		GameService.Account_Check (GameUtility.GetInputText (Const.Input_Account)
+		ClientService.Account_Check (GameUtility.GetInputText (Const.Input_Account)
 		                           , GameUtility.GetInputText (Const.Input_Password)
 		                           );
 	}
