@@ -1,12 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tools\Network\Localhost\GameServer_Account.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tools\Network\Localhost\GameServer_Data.cs">
     <Files>
-      <File FileName="Assets\Scripts\Tools\Network\Localhost\GameServer.cs" Line="60" Column="40" />
-      <File FileName="Assets\Scripts\Tools\Network\ClientService_Account.cs" Line="21" Column="42" />
-      <File FileName="Assets\Scripts\Tools\Network\Localhost\GameServer_Account.cs" Line="39" Column="8" />
-      <File FileName="Assets\Scripts\Tools\Network\Localhost\GameServer_Data.cs" Line="19" Column="1" />
-      <File FileName="Assets\Scripts\Tools\Module\LogMgr.cs" Line="41" Column="3" />
+      <File FileName="Assets\Scripts\Tools\Network\Localhost\ClientAPI.cs" Line="101" Column="13" />
+      <File FileName="Assets\Scripts\Tools\Network\Localhost\GameServer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Tools\Network\ClientService_Account.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Tools\Network\Localhost\GameServer_Account.cs" Line="27" Column="3" />
+      <File FileName="Assets\Scripts\Tools\Network\Localhost\GameServer_Data.cs" Line="25" Column="3" />
+      <File FileName="Assets\Scripts\Tools\Module\LogMgr.cs" Line="48" Column="1" />
+      <File FileName="Assets\Scripts\Tools\GMTools.cs" Line="33" Column="21" />
+      <File FileName="Assets\Scripts\Tools\Network\Localhost\IServerAPI.cs" Line="20" Column="19" />
+      <File FileName="Assets\Scripts\Tools\Network\Localhost\ClientAction.cs" Line="33" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -17,15 +21,9 @@
                 <Node name="Module" expanded="True" />
                 <Node name="Network" expanded="True">
                   <Node name="Localhost" expanded="True">
-                    <Node name="GameServer_Account.cs" selected="True" />
+                    <Node name="GameServer_Data.cs" selected="True" />
                   </Node>
                 </Node>
-              </Node>
-              <Node name="UI" expanded="True">
-                <Node name="GameUtility" expanded="True" />
-              </Node>
-              <Node name="WithClient" expanded="True">
-                <Node name="Module" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -37,6 +35,8 @@
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State>
           <Value>strResult</Value>
+          <Value>dictArgs[strKey]</Value>
+          <Value>strKey</Value>
         </State>
       </Pad>
     </Pads>

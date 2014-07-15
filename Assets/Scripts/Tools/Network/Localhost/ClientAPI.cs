@@ -48,7 +48,10 @@ public partial class ClientAPI : IServerAPI
 	// 回傳資料給 Client
 	public void PostResultToClient (ServerPacket sp, Dictionary<string, object> dictResult)
 	{
-		ClientService.ProtocolCompleteCallback (ErrorType.Success, dictResult, sp.UserState, null);
+		object UserState = null;
+		if (sp != null)
+			UserState = sp.UserState;
+		ClientService.ProtocolCompleteCallback (ErrorType.Success, dictResult, UserState, null);
 	}
 
 	#region Client 版存取資料的方式
@@ -74,7 +77,7 @@ public partial class ClientAPI : IServerAPI
 	public T _GetValue<T> (object oKey)
 	{
 		string strKey = oKey.ToString();
-		string strSaveValue = PlayerPrefs.GetString (strKey, "");
+//		string strSaveValue = PlayerPrefs.GetString (strKey, "");
 		return JsonConvert.DeserializeObject<T> ( PlayerPrefs.GetString (strKey, "") );
 	}
 
@@ -91,17 +94,19 @@ public partial class ClientAPI : IServerAPI
 		string strKey = oKey.ToString();
 		if (dictArgs.ContainsKey (strKey) == false)
 		{
-			dictArgs[strKey] = defaultValue;
+			//dictArgs[strKey] = defaultValue;
+			SetDataFromDict (dictArgs, oKey, defaultValue);
 			return defaultValue;
 		}
-		return (T) dictArgs[strKey];
+		return (T)System.Convert.ChangeType (dictArgs[strKey], typeof(T));
+		//return (T) dictArgs[strKey];
 	}
 	
 	public void SetDataFromDict (Dictionary<string, object> dictArgs, object oKey, object Value)
 	{
 		string strKey = oKey.ToString();
 		dictArgs[strKey] = Value;
-		_SetValue (dictArgs["ClientSaveKey"].ToString(), dictArgs);
+		_SetValue (dictArgs["ClientSaveKey"], dictArgs);
 	}
 	
 	#endregion

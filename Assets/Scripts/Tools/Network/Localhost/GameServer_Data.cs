@@ -23,4 +23,16 @@ public partial class GameServer
 			ServerAPI.SetDataFromDict (m_Player, ClientSaveKey.ClientSaveKey, ClientSaveKey.PlayerAttr.ToString());
 		}
 	}
+
+	// 做加錢的動作
+	public void GM_AddGameMoney (int Counter=1000)
+	{
+		int OldMoney = ServerAPI.GetDataFromDict<int> (m_Player, DICT_PlayerAttr.Money, 0);
+		ServerAPI.SetDataFromDict (m_Player, DICT_PlayerAttr.Money, OldMoney + Counter);
+		int Money = ServerAPI.GetDataFromDict<int> (m_Player, DICT_PlayerAttr.Money, 0);
+		// 通知 Client
+		Dictionary<string, object> dictResult = new Dictionary<string, object> ();
+		ClientAction.AddClientAction (dictResult, ClientActionID.Game_Money, Money);
+		ServerAPI.PostResultToClient (null, dictResult);
+	}
 }

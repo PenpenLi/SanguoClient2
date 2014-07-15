@@ -175,6 +175,7 @@
      <Compile Include="Assets\Scripts\Const.cs" />
      <Compile Include="Assets\Scripts\Main_Control.cs" />
      <Compile Include="Assets\Scripts\PlayerAttr.cs" />
+     <Compile Include="Assets\Scripts\Tools\GMTools.cs" />
      <Compile Include="Assets\Scripts\Tools\Module\ClientSaveMgr.cs" />
      <Compile Include="Assets\Scripts\Tools\Module\Json.cs" />
      <Compile Include="Assets\Scripts\Tools\Module\LogMgr.cs" />
